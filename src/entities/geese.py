@@ -112,9 +112,10 @@ class BouncerGoose(Goose):
         :return: Ничего
         """
 
-        if randint(6, 10) > randint(7, 8):
-            print(f"Гусю {self.name} не понравился игрок {player.name}, поэтому он его выгнал, забрав деньги")
-            self.balance += player.balance
-            players.remove(player)
-        else:
-            print(f"Гусю {self.name} не понравился игрок {player.name}, но ничего с этим поделать не может")
+        if player in players:
+            if randint(6, 10) > randint(7, 8):
+                print(f"Гусю {self.name} не понравился игрок {player.name}, поэтому он его выгнал, забрав деньги")
+                self.balance += player.balance
+                players.remove(player)
+            else:
+                print(f"Гусю {self.name} не понравился игрок {player.name}, но ничего с этим поделать не может")

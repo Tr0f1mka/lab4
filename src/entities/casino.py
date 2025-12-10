@@ -53,6 +53,7 @@ class Casino():
         """
 
         goose_types = [Goose, WarGoose, HonkGoose, BankerGoose, BouncerGoose, CommanderGoose]
+        # goose_types = [BouncerGoose]
         name = choice(GOOSE_NAMES)
         GOOSE_NAMES.remove(name)
         goose: Goose = choice(goose_types)(name)
@@ -99,6 +100,11 @@ class Casino():
                 self.honk_steps = 4
             elif result == 2:
                 self.target_steps = 4
+
+            if  not self.players:
+                self.goose_balance.update_balance(self.geese)
+                self.player_balance.update_balance(self.players)
+                return
 
         # Объединение гусей в стаю(10%)
         if len(self.geese) > 1:

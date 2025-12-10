@@ -1,16 +1,42 @@
-from typing import TYPE_CHECKING, overload, SupportsIndex
+from typing import TYPE_CHECKING, overload, SupportsIndex, Iterator
 from random import choice
-from collections import UserList
 
 if TYPE_CHECKING:
     from src.entities.base_classes import Goose, Player
 from src.logger import logger
 
 
-class GooseCollection(UserList["Goose"]):
+class GooseCollection():
     """
     Коллекция гусей
     """
+
+    def __init__(self) -> None:
+        """
+        Инициализация коллекции
+        :return: Ничего
+        """
+
+        self.data: list["Goose"] = []
+
+
+    def append(self, goose: "Goose") -> None:
+        """
+        Добавление игрока
+        :param goose: Новый гусь
+        :return: Ничего
+        """
+
+        self.data.append(goose)
+
+
+    def __len__(self) -> int:
+        """
+        Вычисляет длину коллекции
+        :return: Число - длина коллекции
+        """
+
+        return len(self.data)
 
 
     def remove(self, goose: "Goose") -> None:
@@ -42,6 +68,15 @@ class GooseCollection(UserList["Goose"]):
         if key is slice:
             return GooseCollection(self.data[key])           #type: ignore
         return self.data[key]                                #type: ignore
+
+
+    def __iter__(self) -> Iterator:
+        """
+        Дарует коллекции способность итерироваться
+        :return: Итератор
+        """
+
+        return iter(self.data)
 
 
     def set_target(self, target: "Player | None" = None) -> None:

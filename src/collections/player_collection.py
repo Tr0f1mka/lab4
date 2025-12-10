@@ -1,5 +1,4 @@
-from typing import TYPE_CHECKING, overload, SupportsIndex
-from collections import UserList
+from typing import TYPE_CHECKING, overload, SupportsIndex, Iterator
 from random import choice
 
 if TYPE_CHECKING:
@@ -7,10 +6,37 @@ if TYPE_CHECKING:
 from src.logger import logger
 
 
-class PlayerCollection(UserList["Player"]):
+class PlayerCollection():
     """
     Коллекция игроков
     """
+
+    def __init__(self) -> None:
+        """
+        Инициализация коллекции
+        :return: Ничего
+        """
+
+        self.data: list["Player"] = []
+
+
+    def append(self, player: "Player") -> None:
+        """
+        Добавление игрока
+        :param player: Новый игрок
+        :return: Ничего
+        """
+
+        self.data.append(player)
+
+
+    def __len__(self) -> int:
+        """
+        Вычисляет длину коллекции
+        :return: Число - длина коллекции
+        """
+
+        return len(self.data)
 
 
     def remove(self, player: "Player"):
@@ -43,6 +69,15 @@ class PlayerCollection(UserList["Player"]):
         if key is slice:
             return PlayerCollection(self.data[key])               #type: ignore
         return self.data[key]                                     #type: ignore
+
+
+    def __iter__(self) -> Iterator:
+        """
+        Дарует коллекции способность итерироваться
+        :return: Итератор
+        """
+
+        return iter(self.data)
 
 
     def random(self) -> "Player":
