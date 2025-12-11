@@ -7,6 +7,7 @@ from time import sleep
 from src.collections.goose_collection import GooseCollection
 from src.collections.player_collection import PlayerCollection
 
+mixer.init()
 
 @dataclass
 class Goose():
@@ -18,6 +19,8 @@ class Goose():
     balance: int
     target: "None | Player"
     honk_volume: int = randint(1, 10)
+    hooonk = mixer.Sound("src/sounds/honk.mp3")
+    hooonk.set_volume(honk_volume/10)
 
 
     def __init__(self, name: str, target: "None | Player" = None) -> None:
@@ -31,10 +34,6 @@ class Goose():
         self.name = name
         self.balance = 0
         self.target = target
-
-        mixer.init()
-        self.hooonk = mixer.Sound("src/sounds/honk.mp3")
-        self.hooonk.set_volume(self.honk_volume/10)
 
 
     def __add__(self, other: "Goose") -> "Goose":
@@ -50,6 +49,7 @@ class Goose():
         result.balance = self.balance+other.balance
         result.honk_volume = self.honk_volume+other.honk_volume if self.honk_volume+other.honk_volume <= 10 else 10
         result.target = self.target
+        result.hooonk.set_volume(result.honk_volume/10)
 
         methods = {}
 

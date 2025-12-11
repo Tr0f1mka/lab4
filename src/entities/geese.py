@@ -68,14 +68,20 @@ class BankerGoose(Goose):
         :return: Ничего
         """
 
-        if not player.moves_with_credit:
-            player.balance += 20
-            player.moves_with_credit = 5
-            player.creditor = self
-            print(f"Гусь {self.name} даёт игроку {player.name} в долг 20 GC на 4 хода")
+        if self.balance >= 20:
+            if not player.moves_with_credit:
+                player.balance += 20
+                self.balance -= 20
+                player.moves_with_credit = 5
+                player.creditor = self
+                print(f"Гусь {self.name} даёт игроку {player.name} в долг 20 GC на 4 хода")
+
+            else:
+                print(f"Гусь {self.name} хотел дать денег в долг игроку {player.name}, но тот уже был должен")
 
         else:
-            print(f"Гусь {self.name} хотел дать денег в долг игроку {player.name}, но тот уже был должен")
+            self.steel(player)
+
 
 
 class CommanderGoose(Goose):
@@ -97,6 +103,7 @@ class CommanderGoose(Goose):
         geese.set_target(player)
         print(f"Гусь {self.name} даёт команду гусям атаковать игрока {player.name} в течение 4 ходов")
         return 2
+
 
 
 class BouncerGoose(Goose):
