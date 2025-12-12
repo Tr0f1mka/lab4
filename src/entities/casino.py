@@ -131,7 +131,7 @@ class Casino():
             if not self.target_steps:
                 self.geese.set_target()
 
-        # Обновдение балансов
+        # Обновление балансов
         self.players.update_credit()
         self.players.update_protect()
         self.goose_balance.update_balance(self.geese)

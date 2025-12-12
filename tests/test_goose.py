@@ -23,15 +23,15 @@ class TestGoose(unittest.TestCase):
     @patch("src.entities.base_classes.print")
     def test_steel_with_succes(self, mock_print):
 
-        seed(2)
+        seed(5)
 
         test_goose = Goose("A")
         test_player = Player("A")
 
         test_goose.steel(test_player)
 
-        self.assertEqual(test_goose.balance, 6)
-        self.assertEqual(test_player.balance, 94)
+        self.assertEqual(test_goose.balance, 10)
+        self.assertEqual(test_player.balance, 90)
 
 
     @patch("src.entities.base_classes.print")

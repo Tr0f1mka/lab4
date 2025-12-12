@@ -152,7 +152,7 @@ class Goose():
         :return: Ничего
         """
 
-        if randint(6, 10) > randint(5+player.defence, 7+player.defence):
+        if randint(6, 10) > randint(6+player.defence, 8+player.defence):
             s = randint(5, 15)
             if s > player.balance:
                 self.balance += player.balance
